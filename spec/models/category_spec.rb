@@ -18,7 +18,6 @@ RSpec.describe Category, type: :model do
     end
   end
 
-  # description unique
   context "Validating description" do
     it "should be invalid if description is nil" do
       expect(build(:category, description:nil)).to be_invalid
