@@ -12,6 +12,11 @@ RSpec.describe Category, type: :model do
     it "should be invalid if name is nil" do
       expect(build(:category, name:nil)).to be_invalid
     end
+
+    it "should be invalid if repeated" do
+      create(:category, name: "Geams")
+      expect(build(:category, name: "Geams")).to be_invalid
+    end
   end
 
   # description text [not null, unique]
