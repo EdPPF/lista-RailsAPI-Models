@@ -7,7 +7,6 @@ RSpec.describe Category, type: :model do
     end
   end
 
-  # name string [not null, unique]
   context "Validating name" do
     it "should be invalid if name is nil" do
       expect(build(:category, name:nil)).to be_invalid
@@ -19,10 +18,15 @@ RSpec.describe Category, type: :model do
     end
   end
 
-  # description text [not null, unique]
+  # description unique
   context "Validating description" do
     it "should be invalid if description is nil" do
       expect(build(:category, description:nil)).to be_invalid
+    end
+
+    it "should be invalid if repeated" do
+      create(:category, name: "Gemas", description: "Joguenhos")
+    expect(build(:category, name: "Maegs" ,description: "Joguenhos")).to be_invalid
     end
   end
 end
