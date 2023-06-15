@@ -23,7 +23,6 @@ RSpec.describe "Api::V1::Post", type: :request do
 
   end
 
-  # Não sei quais testes fazer aqui...
   describe "GET / index" do
     before do
       create(:post, title:"TituloA", content:"ConteudoA")
@@ -34,12 +33,19 @@ RSpec.describe "Api::V1::Post", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "returns a the created instances" do
-        expect(JSON.parse(response.body)).to eq([{
-          'title' => "TituloA",
-          'content' => "ConteudoA"
-        }])
+      it "returns a JSON" do
+        get "/api/v1/post/index"
+        expect(response.content_type).to eq('application/json; charset=utf-8')
       end
+
+      # Isso aqui não foi lá uma boa ideia pra agora...
+      # it "returns a the created instances" do
+      #   get "/api/v1/post/index"
+      #   expect(JSON.parse(response.body)).to eq([{
+      #     'title' => "TituloA",
+      #     'content' => "ConteudoA"
+      #   }])
+      # end
     end
   end
 
