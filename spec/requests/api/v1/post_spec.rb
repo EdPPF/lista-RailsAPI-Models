@@ -5,6 +5,7 @@ RSpec.describe "Api::V1::Post", type: :request do
     let(:post_params) do
       attributes_for(:post)
     end
+
     context "when params are ok" do
       it "return http status created" do
         post "/api/v1/post/create", params:{post: post_params}
@@ -36,10 +37,18 @@ RSpec.describe "Api::V1::Post", type: :request do
     let(:post_params) do
       attributes_for(:post)
     end
+
     context "when post exists" do
       it "returns http status ok" do
         get "/api/v1/post/show/#{posta.id}", params:{post: post_params}
         expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when post does not exist" do
+      it "returns http status not_found" do
+        get "/api/v1/post/show/42"
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
