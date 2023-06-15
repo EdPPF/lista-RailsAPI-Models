@@ -21,4 +21,26 @@ RSpec.describe "Api::V1::Post", type: :request do
     end
 
   end
+
+  # Não sei quais testes fazer aqui...
+  # describe "GET / index" do
+  #   before do
+  #     titulo = "Como criar e testar Controllers"
+  #     conteudo = "Eu não sei como, na verdade."
+  #     create(:post, title:titulo, content:conteudo)
+  #   end
+  # end
+
+  describe "GET / show/:id" do
+    let(:posta) {create(:post, title:"Titulo", content:"Conteudo")}
+    let(:post_params) do
+      attributes_for(:post)
+    end
+    context "when post exists" do
+      it "returns http status ok" do
+        get "/api/v1/post/show/#{posta.id}", params:{post: post_params}
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end
