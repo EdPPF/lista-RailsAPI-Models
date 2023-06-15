@@ -24,13 +24,24 @@ RSpec.describe "Api::V1::Post", type: :request do
   end
 
   # Não sei quais testes fazer aqui...
-  # describe "GET / index" do
-  #   before do
-  #     titulo = "Como criar e testar Controllers"
-  #     conteudo = "Eu não sei como, na verdade."
-  #     create(:post, title:titulo, content:conteudo)
-  #   end
-  # end
+  describe "GET / index" do
+    before do
+      create(:post, title:"TituloA", content:"ConteudoA")
+    end
+    context "when post is created" do
+      it "returns htpps status ok" do
+        get "/api/v1/post/index"
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "returns a the created instances" do
+        expect(JSON.parse(response.body)).to eq([{
+          'title' => "TituloA",
+          'content' => "ConteudoA"
+        }])
+      end
+    end
+  end
 
   describe "GET / show/:id" do
     let(:posta) {create(:post, title:"Titulo", content:"Conteudo")}
