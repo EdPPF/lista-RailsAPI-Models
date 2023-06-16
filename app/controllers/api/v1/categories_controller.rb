@@ -12,6 +12,13 @@ class Api::V1::CategoriesController < ApplicationController
      render json: categs, status: :ok
   end
 
+  def show
+    categ = Category.find(params[:id])
+    render json: categ, status: :ok
+  rescue StandardError => e
+    render json: e, status: :not_found
+  end
+
   private
     def category_params
       params.require(:category).permit(:name, :description)
