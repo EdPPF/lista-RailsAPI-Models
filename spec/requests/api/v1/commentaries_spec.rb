@@ -26,4 +26,22 @@ RSpec.describe "Api::V1::Commentaries", type: :request do
       end
     end
   end
+
+  describe "GET / index" do
+    before do
+      create(:post, id: 2, title:"TituloA", content:"ConteudoA")
+      create(:commentary, content:"McDonalds", user_id:20, post_id:2)
+    end
+    context "when comment is created" do
+      it "returns https status ok" do
+        get "/api/v1/commentaries/index"
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "returns a JSON" do
+        get "/api/v1/commentaries/index"
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+      end
+    end
+  end
 end
