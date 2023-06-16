@@ -68,4 +68,30 @@ RSpec.describe "Api::V1::Categories", type: :request do
       end
     end
   end
+
+  describe "PATCH / update/:id" do
+    let(:categC) {create(:category, name:"NomC", description:"DescripC")}
+    let(:categD) {create(:category, name:"NomD", description:"DescripD")}
+
+    context "when params are ok" do
+      it "returns http status ok" do
+        patch "/api/v1/categories/update/#{categC.id}", params:{category: {name:"TotK", description:"Game of the Year"}}
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when params are nil" do
+      it "returns https bad_request" do
+        patch "/api/v1/categories/update/#{categC.id}", params:{category: {name:nil, description:nil}}
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context "when params are repeated" do
+      it "returns http status bad_request" do
+        patch "/api/v1/categories/update/#{categD.id}", params:{category: {name:"NomC", description:"DescripC"}}
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+  end
 end
