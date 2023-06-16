@@ -19,6 +19,14 @@ class Api::V1::PostController < ApplicationController
     render json: e, status: :not_found
   end
 
+  def update
+    pos = Post.find(params[:id])
+    pos.update!(post_params)
+    render json: pos, status: :ok
+  rescue StandardError => e
+    render json: e, status: :bad_request
+  end
+
   private
     def post_params
       params.require(:post).permit(:title, :content, :useradmin_id)

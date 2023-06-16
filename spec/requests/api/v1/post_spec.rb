@@ -86,6 +86,7 @@ RSpec.describe "Api::V1::Post", type: :request do
     context "when params are nil" do
       it "returns https status bad_request" do
         patch "/api/v1/post/update/#{posto.id}", params:{post: {title:nil, content:nil}}
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end
