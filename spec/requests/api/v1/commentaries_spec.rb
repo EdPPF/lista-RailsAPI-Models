@@ -48,12 +48,12 @@ RSpec.describe "Api::V1::Commentaries", type: :request do
   describe "GET / show/:id" do
     before do
       create(:post, id: 3, title:"._.", content:"conteudo")
-      create(:commentary, id: 2, content: "cont", user_id: 351, post_id: 3)
+      create(:commentary, id: 5, content: "cont", user_id: 351, post_id: 3)
     end
 
     context "when comment exists" do
       it "returns http status ok" do
-        get "/api/v1/commentaries/show/2"
+        get "/api/v1/commentaries/show/5"
         expect(response).to have_http_status(:ok)
       end
     end
