@@ -7,6 +7,11 @@ class Api::V1::CommentariesController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def index
+    comments = Commentary.all
+    render json: comments, status: :ok
+  end
+
   private
     def commentary_params
       params.require(:commentary).permit(:content, :user_id, :post_id)
