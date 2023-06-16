@@ -65,4 +65,25 @@ RSpec.describe "Api::V1::Commentaries", type: :request do
       end
     end
   end
+
+  describe "PATCH / update/:id" do
+    before do
+      create(:post, id: 4, title:"POSTEb", content:"contenteB")
+      create(:commentary, id: 10, content: "2as4", user_id: 1351, post_id: 4)
+    end
+
+    context "when params are ok" do
+      it "returns http status ok" do
+        patch "/api/v1/commentaries/update/10", params:{commentary: {content:"4as6"}}
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when params are nil" do
+      it "returns http status bad_request" do
+        patch "/api/v1/commentaries/update/10", params:{commentary: {content:nil}}
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+  end
 end
