@@ -27,6 +27,14 @@ class Api::V1::CommentariesController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def delete
+    come = Commentary.find(params[:id])
+    come.destroy!
+    render json: {message: "Object destroyed."}, status: :ok
+  rescue StandardError => e
+    render json: e, status: :not_found
+  end
+
   private
     def commentary_params
       params.require(:commentary).permit(:content, :user_id, :post_id)
