@@ -30,4 +30,21 @@ RSpec.describe "Api::V1::Categories", type: :request do
       end
     end
   end
+
+  describe "GET / index" do
+    before do
+      create(:category, name:"NOMU", description:"Descript")
+    end
+    context "when category is created" do
+      it "returns https status ok" do
+        get "/api/v1/categories/index"
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "returns a JSON" do
+        get "/api/v1/categories/index"
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+      end
+    end
+  end
 end

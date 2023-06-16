@@ -7,6 +7,11 @@ class Api::V1::CategoriesController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def index
+     categs = Category.all
+     render json: categs, status: :ok
+  end
+
   private
     def category_params
       params.require(:category).permit(:name, :description)

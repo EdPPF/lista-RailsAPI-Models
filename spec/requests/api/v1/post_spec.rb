@@ -28,7 +28,7 @@ RSpec.describe "Api::V1::Post", type: :request do
       create(:post, title:"TituloA", content:"ConteudoA")
     end
     context "when post is created" do
-      it "returns htpps status ok" do
+      it "returns https status ok" do
         get "/api/v1/post/index"
         expect(response).to have_http_status(:ok)
       end
