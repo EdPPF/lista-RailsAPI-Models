@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Categories", type: :request do
 
   describe "GET / index" do
     before do
-      create(:category, name:"NOMU", description:"Descript")
+      create(:category, name:"Nomu", description:"Descript")
     end
     context "when category is created" do
       it "returns https status ok" do
