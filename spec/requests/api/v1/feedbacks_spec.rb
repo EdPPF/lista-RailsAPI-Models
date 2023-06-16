@@ -33,4 +33,33 @@ RSpec.describe "Api::V1::Feedbacks", type: :request do
       end
     end
   end
+
+  describe "GET / show/:id" do
+    # let(:posta) {create(:post, id: 3, title:"Titulo", content:"Conteudo")}
+    # let(:post_params) do
+    #   attributes_for(:post)
+    # end
+    # let(:feedbab) {create(:feedback, like: true, user_id: 22, post_id: 3)}
+    # let(:feedback_params) do
+    #   attributes_for(:feedback)
+    # end
+    before do
+      create(:post, id: 2, title:"POSTE", content:"contente")
+      create(:feedback, id: 1, like: true, user_id: 42, post_id: 2)
+    end
+
+    context "when feedback exists" do
+      it "returns http status ok" do
+        get "/api/v1/feedbacks/show/1"
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when post does not exist" do
+      it "returns http status not_found" do
+        get "/api/v1/feedbacks/show/-1"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
