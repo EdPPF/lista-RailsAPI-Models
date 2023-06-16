@@ -86,4 +86,25 @@ RSpec.describe "Api::V1::Commentaries", type: :request do
       end
     end
   end
+
+  describe "DELETE / delete/:id" do
+    before do
+      create(:post, id: 5, title:"How to Play Sekiro", content:"gameplay.mp4")
+      create(:commentary, id: 15, content: "very cool", user_id: 69, post_id: 5)
+    end
+
+    context "when comment exists" do
+      it "returns http status ok" do
+        delete "/api/v1/commentaries/delete/15"
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when comment does not exist" do
+      it "returns https status not_found" do
+        delete "/api/v1/commentaries/delete/-1"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
