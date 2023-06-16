@@ -25,6 +25,14 @@ Rails.application.routes.draw do
         patch 'update/:id', to:'feedbacks#update'
         delete 'delete/:id', to:'feedbacks#delete'
       end
+
+      scope 'commentaries' do
+        post 'create', to:'commentaries#create'
+        get 'index', to:'commentaries#index'
+        get 'show/:id', to:'commentaries#show'
+        patch 'update/:id', to:'commentaries#update'
+        delete 'delete/:id', to:'commentaries#delete'
+      end
     end
   end
 end
