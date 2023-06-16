@@ -44,4 +44,25 @@ RSpec.describe "Api::V1::Commentaries", type: :request do
       end
     end
   end
+
+  describe "GET / show/:id" do
+    before do
+      create(:post, id: 3, title:"._.", content:"conteudo")
+      create(:commentary, id: 2, content: "cont", user_id: 351, post_id: 3)
+    end
+
+    context "when comment exists" do
+      it "returns http status ok" do
+        get "/api/v1/commentaries/show/2"
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when comment does not exist" do
+      it "returns http status not_found" do
+        get "/api/v1/commentaries/show/-1"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
