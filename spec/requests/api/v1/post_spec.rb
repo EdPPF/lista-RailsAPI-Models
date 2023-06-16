@@ -99,9 +99,9 @@ RSpec.describe "Api::V1::Post", type: :request do
     end
 
     context "when post does not exist" do
-      it "returns https status bad_request" do
+      it "returns https status not_found" do
         delete "/api/v1/post/delete/42"
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

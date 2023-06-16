@@ -27,6 +27,14 @@ class Api::V1::PostController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def delete
+    pos = Post.find(params[:id])
+    pos.destroy!
+    render json: {message: "Object destroyed."}, status: :ok
+  rescue StandardError => e
+    render json: e, status: :not_found
+  end
+
   private
     def post_params
       params.require(:post).permit(:title, :content, :useradmin_id)
