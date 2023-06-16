@@ -69,4 +69,18 @@ RSpec.describe "Api::V1::Post", type: :request do
       end
     end
   end
+
+  describe "PATCH / update:/id" do
+    let(:posto) {create(:post, title:"Titulo", content:"Conteudo")}
+    # let(:post_params) do
+    #   attributes_for(:post)
+    # end
+
+    context "when params are ok" do
+      it "returns http status ok" do
+        patch "/api/v1/post/update/#{posto.id}", params:{post: {title:"Zelda e Bom", content:"Eu ainda nao zerei"}}
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end
