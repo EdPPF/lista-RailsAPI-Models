@@ -27,6 +27,14 @@ class Api::V1::FeedbacksController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def delete
+    fee = Feedback.find(params[:id])
+    fee.destroy!
+    render json: {message: "Object destroyed."}, status: :ok
+  rescue StandardError => e
+    render json: e, status: :not_found
+  end
+
   private
     def feedback_params
       params.require(:feedback).permit(:like, :user_id, :post_id)
