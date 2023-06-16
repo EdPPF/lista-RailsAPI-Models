@@ -12,6 +12,13 @@ class Api::V1::FeedbacksController < ApplicationController
     render json: feedbs, status: :ok
   end
 
+  def show
+    feedb = Feedback.find(params[:id])
+    render json: feedb, status: :ok
+  rescue StandardError => e
+    render json: e, status: :not_found
+  end
+
   private
     def feedback_params
       params.require(:feedback).permit(:like, :user_id, :post_id)
