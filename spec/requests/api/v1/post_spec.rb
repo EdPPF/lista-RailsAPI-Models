@@ -72,9 +72,6 @@ RSpec.describe "Api::V1::Post", type: :request do
 
   describe "PATCH / update:/id" do
     let(:posto) {create(:post, title:"Titulo", content:"Conteudo")}
-    # let(:post_params) do
-    #   attributes_for(:post)
-    # end
 
     context "when params are ok" do
       it "returns http status ok" do
@@ -86,6 +83,24 @@ RSpec.describe "Api::V1::Post", type: :request do
     context "when params are nil" do
       it "returns https status bad_request" do
         patch "/api/v1/post/update/#{posto.id}", params:{post: {title:nil, content:nil}}
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+  end
+
+  describe "DELETE / delete/:id" do
+    let(:postu) {create(:post, title:"TITULO", content:"CONTEUDO")}
+
+    context "when post exists" do
+      it "returns http status ok" do
+        delete "/api/v1/post/delete/#{postu.id}"
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when post does not exist" do
+      it "returns https status bad_request" do
+        delete "/api/v1/post/delete/42"
         expect(response).to have_http_status(:bad_request)
       end
     end
