@@ -9,6 +9,14 @@ Rails.application.routes.draw do
         patch 'update/:id', to:'post#update'
         delete 'delete/:id', to:'post#delete'
       end
+
+      scope 'categories' do
+        post 'create', to:'categories#create'
+        get 'index', to:'categories#index'
+        get 'show/:id', to:'categories#show'
+        patch 'update/:id', to:'categories#update'
+        delete 'delete/:id', to:'categories#delete'
+      end
     end
   end
 end
