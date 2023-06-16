@@ -27,6 +27,14 @@ class Api::V1::CategoriesController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def delete
+    cat = Category.find(params[:id])
+    cat.destroy!
+    render json: {message: "Object destroyed."}, status: :ok
+  rescue StandardError => e
+    render json: e, status: :not_found
+  end
+
   private
     def category_params
       params.require(:category).permit(:name, :description)
