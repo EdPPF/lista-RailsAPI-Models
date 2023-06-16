@@ -7,6 +7,11 @@ class Api::V1::FeedbacksController < ApplicationController
     render json: e, status: :bad_request
   end
 
+  def index
+    feedbs = Feedback.all
+    render json: feedbs, status: :ok
+  end
+
   private
     def feedback_params
       params.require(:feedback).permit(:like, :user_id, :post_id)
