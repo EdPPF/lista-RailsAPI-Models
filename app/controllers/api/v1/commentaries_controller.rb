@@ -19,6 +19,14 @@ class Api::V1::CommentariesController < ApplicationController
     render json: e, status: :not_found
   end
 
+  def update
+    comm = Commentary.find(params[:id])
+    comm.update!(commentary_params)
+    render json: comm, status: :ok
+  rescue StandardError => e
+    render json: e, status: :bad_request
+  end
+
   private
     def commentary_params
       params.require(:commentary).permit(:content, :user_id, :post_id)
