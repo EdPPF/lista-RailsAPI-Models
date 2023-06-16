@@ -19,6 +19,14 @@ class Api::V1::FeedbacksController < ApplicationController
     render json: e, status: :not_found
   end
 
+  def update
+    fedd = Feedback.find(params[:id])
+    fedd.update!(feedback_params)
+    render json: fedd, status: :ok
+  rescue StandardError => e
+    render json: e, status: :bad_request
+  end
+
   private
     def feedback_params
       params.require(:feedback).permit(:like, :user_id, :post_id)
