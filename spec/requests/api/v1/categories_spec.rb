@@ -63,7 +63,7 @@ RSpec.describe "Api::V1::Categories", type: :request do
 
     context "when category doesn't exist" do
       it "returns http status not_found" do
-        get "/api/v1/categories/show/52"
+        get "/api/v1/categories/show/52" # Não é um erro, mas uma boa prática de programação seria colocar "-1" ao invés de 52, porque nunca vai existir um index -1
         expect(response).to have_http_status(:not_found)
       end
     end
@@ -90,13 +90,21 @@ RSpec.describe "Api::V1::Categories", type: :request do
       end
     end
 
-    # Por algum motivo, não está funcionando...
-    # context "when params are repeated" do
-    #   it "returns http status bad_request" do
-    #     patch "/api/v1/categories/update/#{categC.id}", params:{category: {name:"NomD", description:"DescripD"}}
-    #     expect(response).to have_http_status(:bad_request)
-    #   end
-    # end
+    # Existem várias formas de se resolver:
+      # Quando você colocava "category" ali, ele meio que estava criando uma nova variável e lendo que era diferente, então não estava repetindo. Se você faz uma referência a categD, que já existe, ele vê que está de fato repetindo
+      # Você pode deixar "category" e nos próprios parâmetros colocar uma referência aos parâmetros do categD
+    context "when params are repeated" do
+      it "returns http status bad_request" do
+        patch "/api/v1/categories/update/#{categC.id}", params:{categD: {name:"NomD", description:"DescripD"}}
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+    context "when params are repeated" do
+      it "returns http status bad_request" do
+        patch "/api/v1/categories/update/#{categC.id}", params:{category: {name:categD.name, description:categD.description}}
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
   end
 
   describe "DELETE / delete/:id" do
