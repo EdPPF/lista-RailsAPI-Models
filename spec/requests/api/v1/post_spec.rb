@@ -39,6 +39,8 @@ RSpec.describe "Api::V1::Post", type: :request do
       end
 
       # Isso aqui não foi lá uma boa ideia pra agora...
+      # KKKKKK Está certinho, o problema é que compara linha por linha e ai vai retornar coisas como "created_at" e tals. Porém
+      # se você colocar na Serializer para retornar só título e conteúdo, acredito que funcione sim.
       # it "returns a the created instances" do
       #   get "/api/v1/post/index"
       #   expect(JSON.parse(response.body)).to eq([{
