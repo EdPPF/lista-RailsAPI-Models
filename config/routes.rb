@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # <método HTTPS> '<método rails (CRUD)>'
   namespace 'api' do
     namespace 'v1' do # create, index, show, update e delete;

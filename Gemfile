@@ -55,3 +55,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0', '>= 6.0.3'
   gem 'factory_bot_rails', '~> 6.2'
 end
+
+gem 'devise'
+gem 'simple_token_authentication'
