@@ -1,4 +1,6 @@
 class Api::V1::PostController < ApplicationController
+  acts_as_token_authentication_handler_for User, only:[:create, :update, :delete]
+
   def create
     post = Post.new(post_params)
     post.save!
