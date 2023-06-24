@@ -5,19 +5,19 @@ class Api::V1::PostController < ApplicationController
   def create
     post = Post.new(post_params)
     post.save!
-    render json: post, status: :created
+    render json: serializer(post), status: :created
   rescue StandardError => e
     render json: e, status: :bad_request
   end
 
   def index
     posts = Post.all
-    render json: posts, status: :ok
+    render json: array_serializer(posts), status: :ok
   end
 
   def show
     pos = Post.find(params[:id])
-    render json: pos, status: :ok
+    render json: serializer(pos), status: :ok
   rescue StandardError => e
     render json: e, status: :not_found
   end
@@ -25,7 +25,7 @@ class Api::V1::PostController < ApplicationController
   def update
     pos = Post.find(params[:id])
     pos.update!(post_params)
-    render json: pos, status: :ok
+    render json: serializer(pos), status: :ok
   rescue StandardError => e
     render json: e, status: :bad_request
   end
@@ -41,5 +41,13 @@ class Api::V1::PostController < ApplicationController
   private
     def post_params
       params.require(:post).permit(:title, :content, :useradmin_id)
+    end
+
+    def serializer(post)
+      PostSerializer.new.serialize_to_json(post)
+    end
+
+    def array_serializer(posts)
+      Panko::ArraySerializer.new(posts, each_serializer: PostSerializer).to_json
     end
 end

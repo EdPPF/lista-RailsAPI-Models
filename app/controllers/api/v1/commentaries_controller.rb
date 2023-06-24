@@ -5,19 +5,19 @@ class Api::V1::CommentariesController < ApplicationController
   def create
     commen = Commentary.new(commentary_params)
     commen.save!
-    render json: commen, status: :created
+    render json: serializer(commen), status: :created
   rescue StandardError => e
     render json: e, status: :bad_request
   end
 
   def index
     comments = Commentary.all
-    render json: comments, status: :ok
+    render json: array_serializer(comments), status: :ok
   end
 
   def show
     comme = Commentary.find(params[:id])
-    render json: comme, status: :ok
+    render json: serializer(comme), status: :ok
   rescue StandardError => e
     render json: e, status: :not_found
   end
@@ -25,7 +25,7 @@ class Api::V1::CommentariesController < ApplicationController
   def update
     comm = Commentary.find(params[:id])
     comm.update!(commentary_params)
-    render json: comm, status: :ok
+    render json: serializer(comm), status: :ok
   rescue StandardError => e
     render json: e, status: :bad_request
   end
@@ -39,7 +39,15 @@ class Api::V1::CommentariesController < ApplicationController
   end
 
   private
-    def commentary_params
-      params.require(:commentary).permit(:content, :user_id, :post_id)
-    end
+  def commentary_params
+    params.require(:commentary).permit(:content, :user_id, :post_id)
+  end
+
+  def serializer(comentario)
+    CommentarySerializer.new.serialize_to_json(comentario)
+  end
+
+  def array_serializer(comentarios)
+    Panko::ArraySerializer.new(comentarios, each_serializer: CommentarySerializer).to_json
+  end
 end
