@@ -8,6 +8,10 @@ Post.create(id: 1, title:"Item dupl in TotK is no more", content:"They removed i
 Post.create(id: 2, title:"How to Sekiro", content:"Learn to parry")
 Post.create(id: 3, title:"For loop Python Tutorial", content:":D")
 
+Post.find_by(id: 1).image.attach(io: File.open('./public/Suave.jpeg'), filename:('Suave.jpeg'))
+Post.find_by(title: "How to Sekiro").image.attach(io: File.open('./public/Osekiro.jpeg'), filename:('Osekiro.jpeg'))
+Post.find_by(title: "For loop Python Tutorial").image.attach(io: File.open('./public/uh.jpeg'), filename:('uh.jpeg'))
+
 PostCategory.create(post_id: 1, category_id: 1)
 PostCategory.create(post_id: 1, category_id: 3)
 

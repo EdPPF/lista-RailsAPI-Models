@@ -40,7 +40,7 @@ class Api::V1::PostController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :content, :useradmin_id)
+      params.require(:post).permit(:image, :title, :content, :useradmin_id)
     end
 
     def serializer(post)
