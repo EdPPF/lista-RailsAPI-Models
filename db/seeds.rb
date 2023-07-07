@@ -1,16 +1,18 @@
 # Distribua cada post para mais de uma categoria e, além disso, para um post, componha 2 feedbacks e 2 comentários
 
-Category.create(id: 1, name: "Games", description:"Tudo relacionado a jogos de videogame")
-Category.create(id: 2, name: "Animes e Mangás", description:"Discussões sobre anime e mangá")
-Category.create(id: 3, name: "Programação", description:"Aprendizado sobre Programação e relacionados")
+User.create(name: "usuario1", password: "abc123", email: "user1@email", is_admin: true)
 
-Post.create(id: 1, title:"Item dupl in TotK is no more", content:"They removed item dupl, why???")
-Post.create(id: 2, title:"How to Sekiro", content:"Learn to parry")
-Post.create(id: 3, title:"For loop Python Tutorial", content:":D")
+Category.create(name: "Games", description:"Tudo relacionado a jogos de videogame")
+Category.create(name: "Animes e Mangás", description:"Discussões sobre anime e mangá")
+Category.create(name: "Programação", description:"Aprendizado sobre Programação e relacionados")
 
-Post.find_by(id: 1).image.attach(io: File.open('./public/Suave.jpeg'), filename:('Suave.jpeg'))
-Post.find_by(title: "How to Sekiro").image.attach(io: File.open('./public/Osekiro.jpeg'), filename:('Osekiro.jpeg'))
-Post.find_by(title: "For loop Python Tutorial").image.attach(io: File.open('./public/uh.jpeg'), filename:('uh.jpeg'))
+Post.create(user_id: 1, title:"Item dupl in TotK is no more", content:"They removed item dupl, why???")
+Post.create(user_id: 1, title:"How to Sekiro", content:"Learn to parry")
+Post.create(user_id: 1, title:"For loop Python Tutorial", content:":D")
+
+Post.find(1).image.attach(io: File.open('./public/Suave.jpeg'), filename:('Suave.jpeg'))
+Post.find(2).image.attach(io: File.open('./public/Osekiro.jpeg'), filename:('Osekiro.jpeg'))
+Post.find(3).image.attach(io: File.open('./public/uh.jpeg'), filename:('uh.jpeg'))
 
 PostCategory.create(post_id: 1, category_id: 1)
 PostCategory.create(post_id: 1, category_id: 3)
